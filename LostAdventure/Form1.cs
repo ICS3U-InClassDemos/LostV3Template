@@ -16,15 +16,14 @@ namespace LostAdventure
     {
         // Tracks what page of the story the user is at
         int page = 1;
+        SoundPlayer soundPlayer = new SoundPlayer();
 
         public Form1()
         {
             InitializeComponent();
 
             // Display initial message and options
-            outputLabel.Text = "You are lost in a forest.";
-            option1Label.Text = "Go North";
-            option2Label.Text = "Go South";
+            DisplayPage();
         }
 
         private void option1Button_Click(object sender, EventArgs e)
@@ -126,11 +125,21 @@ namespace LostAdventure
             switch (page)
             {
                 case 1:
+                    soundPlayer = new SoundPlayer(Properties.Resources.jungle);
+                    soundPlayer.Play();
+
+                    imageBox.Image = Properties.Resources.deepBrush;
+
                     outputLabel.Text = "You are lost in a forest.";
                     option1Label.Text = "Go North";
                     option2Label.Text = "Go South";
                     break;
                 case 2:
+                    soundPlayer = new SoundPlayer(Properties.Resources.brook);
+                    soundPlayer.Play();
+
+                    imageBox.Image = Properties.Resources.forestLake;
+
                     outputLabel.Text = "You find a lake. Take a drink?";
                     option1Label.Text = "Yes";
                     option2Label.Text = "No";
@@ -169,6 +178,9 @@ namespace LostAdventure
                     outputLabel.Text = "Thank you for playing";
                     option1Label.Text = "";
                     option2Label.Text = "";
+                    Refresh();
+                    Thread.Sleep(2000);
+                    Application.Exit();
                     break;
                 default:
                     break;
